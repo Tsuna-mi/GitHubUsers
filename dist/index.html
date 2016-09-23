@@ -7,19 +7,19 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" data-main="js/main"></script>
 </head>
 <body>
   <main class="container">
     <section id="search">
-      <form id="search-github-user">
-        <input type="text" class="" id="userGithub" placeholder="Search username....">
-        <button type="submit" class="">Search</button>
-        <div class="alert">
-          <strong>Does not exist</strong>
-        </div>
+      <form id="search-github-user" class="form form--complex">
+        <input type="text" class="form__text_input form__object--fillspace" id="userGithub" name="userGithub"placeholder="Search username....">
+        <button type="submit" class="form__object--fillspace-gap btn">Search</button>
       </form>
+      <div class="alert alert-colors">
+        <strong>Does not exist</strong>
+      </div>
     </section>
     <section id="results"></section>
   </main>
