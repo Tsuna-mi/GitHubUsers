@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         },
       targets: {
         files: {
-          'dist/js/custom.min.js' : 'dist/js/custom.js',
+          'dist/js/main.min.js' : 'dist/js/main.js',
         } //Files
       }
     },
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
         },
       targets: {
         files: {
-          'dist/js/custom.js' : ['node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'src/js/*/*/*.js', 'src/js/*/*.js', 'src/js/custom.js'],
+          'dist/js/main.js' : ['node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'src/js/*/*/*.js', 'src/js/*/*.js', 'src/js/main.js'],
         } //Files
       }
     }, //concat
@@ -50,22 +50,6 @@ module.exports = function(grunt) {
           src: ['*.css', '!*.min.css'], // 1
           dest: 'dist/css/',
           ext: '.min.css'
-      }
-    },
-    copy_mate: {
-      boostrap_fonts : {
-        options: {
-          type: "single"
-        },
-        src: 'node_modules/bootstrap-sass/assets/fonts/',
-        destDir: 'dist/fonts'
-      },
-      bootstrap_images : {
-        options: {
-          type: "single"
-        },
-        src: 'node_modules/bootstrap-sass/assets/images/',
-        destDir: 'dist/images'
       }
     },
     postcss: {
@@ -96,6 +80,5 @@ module.exports = function(grunt) {
     }
   }); //initConfig
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('init', ['copy_mate', 'concat', 'uglify', 'sass', 'cssmin']);
   grunt.registerTask('build', ['concat', 'uglify', 'sass', 'cssmin']);
 } //exports

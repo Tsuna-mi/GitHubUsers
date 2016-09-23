@@ -1,4 +1,4 @@
-@import "theme/starterTheme";
-
-// Bootstrap!
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/normalize";
+@import "partials/base";
