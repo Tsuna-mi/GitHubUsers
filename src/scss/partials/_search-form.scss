@@ -22,5 +22,8 @@
    background-image: none;
    border: 1px solid #ccc;
    border-radius: $b-radius;
+   &:hover{
+    background-color: #c4c4c4;
+   }
   }
 }
