@@ -1,6 +1,8 @@
 .form { height: 40px;}
-.form--complex { display: flex; }
-.form__object--fillspace {
+.form--complex { 
+  display: flex;
+  flex-direction: row;
+ .form__object--fillspace {
   flex-grow: 1;
   padding: 6px 10px;
   background-color: #fff;
@@ -26,4 +28,5 @@
     background-color: #c4c4c4;
    }
   }
+ }
 }

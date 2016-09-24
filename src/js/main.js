@@ -15,7 +15,7 @@ require.config({
 
 //probar a quitar dependencias d3 y controller a ver si tira !!
 
-require(['d3','model', 'controller', 'view'], function(d3, model, controller, view) {
+require([], function() {
   // model.getData('/data/charsData.json');
   // controller.init();
       // var chartsData = localStorage.chartsData;

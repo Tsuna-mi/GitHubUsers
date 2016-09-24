@@ -1,4 +1,4 @@
-/*! githubUsers-marfeel - v1.0.0 - 2016-09-23 */ 
+/*! githubUsers-marfeel - v1.0.0 - 2016-09-24 */ 
 /*global require*/
 'use strict';
 
@@ -16,7 +16,7 @@ require.config({
 
 //probar a quitar dependencias d3 y controller a ver si tira !!
 
-require(['d3','model', 'controller', 'view'], function(d3, model, controller, view) {
+require([], function() {
   // model.getData('/data/charsData.json');
   // controller.init();
       // var chartsData = localStorage.chartsData;
