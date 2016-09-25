@@ -1,4 +1,4 @@
-/*! githubUsers-marfeel - v1.0.0 - 2016-09-24 */ 
+/*! githubUsers-marfeel - v1.0.0 - 2016-09-25 */ 
 /*global require*/
 'use strict';
 
