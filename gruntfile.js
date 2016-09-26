@@ -21,28 +21,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
-        options: {
-          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %> */ \n'
-        },
-      targets: {
-        files: {
-          'dist/js/main.min.js' : 'dist/js/main.js',
-        } //Files
-      }
-    },
-    concat: {
-        options: {
-          banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %> */ \n'
-        },
-      targets: {
-        files: {
-          'dist/js/main.js' : ['node_modules/bootstrap-sass/assets/javascripts/bootstrap.js', 'src/js/*/*/*.js', 'src/js/*/*.js', 'src/js/main.js'],
-        } //Files
-      }
-    }, //concat
     cssmin: {
       files: {
           expand: true,
@@ -80,5 +58,5 @@ module.exports = function(grunt) {
     }
   }); //initConfig
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('build', ['concat', 'uglify', 'sass', 'cssmin']);
+  grunt.registerTask('build', ['sass', 'cssmin']);
 } //exports

@@ -1,16 +1,13 @@
-/*! githubUsers-marfeel - v1.0.0 - 2016-09-25 */ 
 /*global require*/
 'use strict';
 
 require.config({
-  baseUrl: '../../src/js',
   paths: {
     utils: 'utils',
     ajax: 'ajax',
     dom: 'dom'
   }
 });
-
 
 require(['utils', 'ajax', 'dom'], function(utils, ajax, dom) {
 

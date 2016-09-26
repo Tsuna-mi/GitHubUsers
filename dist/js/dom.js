@@ -49,23 +49,12 @@ define(['utils'], function(utils) {
     // icon star svg
     createSVG ('svgStar', dInfo, 'star' );
 
-    // var svgStar = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    // svgStar.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-    // svgStar.setAttribute("class", "icons star");
-    // var useSvgStar = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    // useSvgStar.setAttributeNS("http://www.w3.org/1999/xlink","href","img/icons.svg#star");
-
     // span stars text
     var sstars = document.createElement("span");
     sstars.innerHTML = stars;
 
     // icon fork-repo svg
     createSVG ('svgFork', dInfo, 'repo-forked');
-    // var svgFork = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    // svgFork.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-    // svgFork.setAttribute("class", "icons repo-forked");
-    // var useSvgFork = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    // useSvgFork.setAttributeNS("http://www.w3.org/1999/xlink","href","img/icons.svg#repo-forked");
 
     // span stars text
     var sforks = document.createElement("span");
@@ -80,8 +69,6 @@ define(['utils'], function(utils) {
     // dInfo.appendChild(svgFork);
     dInfo.appendChild(sforks);
 
-    // svgStar.appendChild(useSvgStar);
-    // svgFork.appendChild(useSvgFork);
   }
 
   function createSVG(elem, parent, classElem){
