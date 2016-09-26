@@ -3,28 +3,50 @@
 'use strict';
 
 require.config({
+  baseUrl: '../../src/js',
   paths: {
-    // d3: 'https://d3js.org/d3.v4.min',
-    // model: 'models/chartsMd',
-    // controller: 'controllers/chartsCtrl',
-    // view: 'views/chartsVw',
-    // areaChart: 'controllers/components/areaChart',
-    // donutChart: 'controllers/components/donutChart',
-    // ticksChart: 'controllers/components/ticksChart'
+    utils: 'utils',
+    ajax: 'ajax',
+    dom: 'dom'
   }
 });
 
-//probar a quitar dependencias d3 y controller a ver si tira !!
 
-require([], function() {
-  // model.getData('/data/charsData.json');
-  // controller.init();
-      // var chartsData = localStorage.chartsData;
-      //   chartsData.forEach(function(chartsData, i){
-      //     var charts = [];
-      //     charts.pull(chartsData);
+require(['utils', 'ajax', 'dom'], function(utils, ajax, dom) {
 
-      // console.log(charts);
-  // });
+  document.getElementById("urlUser").addEventListener("submit", function(event){
+    event.preventDefault();
+    utils.clearChildNodes("user");
+    utils.clearChildNodes("repos");
+
+    var urlUser = utils.buildUrl ("https://api.github.com/search/users?q=<%SEARCH%>+in%3Alogin&type=Users", "<%SEARCH%>", "userGithub");
+    var urlDataUser = utils.buildUrl ("https://api.github.com/users/<%SEARCH%>", "<%SEARCH%>", "userGithub");
+    var urlRepos = utils.buildUrl ("https://api.github.com/users/<%SEARCH%>/repos", "<%SEARCH%>", "userGithub");
+
+    ajax.callAJAX(urlUser, function(data){
+      if (data.total_count > 0) {
+
+        utils.beforeShowData();
+
+        ajax.callAJAX(urlDataUser, function(data){
+          var dataUser = [data.login.toLowerCase(), utils.capitalizeStr(data.name), data.bio];
+          dom.userInfo(dataUser);
+        });
+
+        ajax.callAJAX(urlRepos, function(data){
+          dom.extractRepos(data);
+        });
+
+      } else {
+        utils.showAlert(1);
+      }
+    });
+
+  });
+
+  document.getElementById("userGithub").addEventListener("focus", function(event){
+    utils.showAlert(0);
+    utils.noUserInput();
+  });
 
 });

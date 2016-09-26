@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" data-main="js/main"></script>
+    <link rel="stylesheet" href="css/style.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js" data-main="js/main.min"></script>
 </head>
 <body>
   <main id="card" class="container">
     <section>
-      <form id="urlUser" class="form form--complex" method="POST">
+      <form id="urlUser" class="form form--complex">
         <input type="text" class="form__text_input form__object--fillspace" id="userGithub" name="userGithub"placeholder="Search username....">
         <button type="submit" id="search" class="form__object--fillspace-gap btn">Search</button>
       </form>
@@ -40,180 +40,8 @@
     </section>
   </main>
 
-  <script src="js/main.js"></script>
-  <script type="text/javascript">
-
-
-    function buildUrl (url, pattern, id){
-      var value = document.getElementById(id).value;
-      var urlAPI = url.replace(pattern, value);
-      return urlAPI;
-
-    }
-
-    function callAJAX (url, callback){
-      var request = new XMLHttpRequest(); 
-      request.onreadystatechange = function(){
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            var data = JSON.parse(request.responseText);
-            if (callback) callback(data);
-          }else{
-            console.log("Error callback");
-            showAlert(1);
-          }
-        }
-      };
-      request.open('GET', url, true);
-      request.send();
-    }
-
-    document.getElementById("urlUser").addEventListener("submit", function(event){
-      event.preventDefault();
-      clearChildNodes("user");
-      clearChildNodes("repos");
-
-      var urlUser = buildUrl ("https://api.github.com/search/users?q=<%SEARCH%>+in%3Alogin&type=Users", "<%SEARCH%>", "userGithub");
-      var urlDataUser = buildUrl ("https://api.github.com/users/<%SEARCH%>", "<%SEARCH%>", "userGithub");
-      var urlRepos = buildUrl ("https://api.github.com/users/<%SEARCH%>/repos", "<%SEARCH%>", "userGithub");
-
-      callAJAX(urlUser, function(data){
-        if (data.total_count > 0) {
-          callAJAX(urlDataUser, function(data){
-            var dataUser = [data.login.toLowerCase(), capitalizeStr(data.name), data.bio];
-            userInfo(dataUser);
-          });
-
-          callAJAX(urlRepos, function(data){
-            document.getElementById("urlUser").style.marginBottom = "15px";
-            document.getElementById("results").style.display = "block";
-            document.getElementById("card").style.height = "450px";
-
-            extractRepos(data);
-          });
-          
-        } else{
-          showAlert(1);
-        }
-      });
-
-    });
-
-    document.getElementById("userGithub").addEventListener("focus", function(event){
-      showAlert(0);
-      noUserInput();
-    });
-
-    function showAlert(flag){
-      var alert = document.getElementById("msg");
-      var results = document.getElementById("results");
-      var card = document.getElementById("card");
-      results.style.display = "none";
-
-      if (flag === 1){
-        alert.style.display = "block";
-        card.style.height = "160px"
-      }else if(flag === 0){
-        alert.style.display = "none";
-        document.getElementById("card").style.height = "85px";
-      }
-
-    }
-
-    function noUserInput(){
-      document.getElementById("userGithub").value = "";
-    }
-
-    function userInfo(userData){
-        // select div
-        var dInfoUser = document.getElementById("user");
-        // create nodes
-        // p username
-        var pUsername = document.createElement("p");
-        var emUsername = document.createElement("em");
-        emUsername.innerHTML = ('@' + userData[0]);
-        // h1 
-        var hName = document.createElement("h1");
-        hName.innerHTML = userData[1];
-        // p bio 
-        var pBio = document.createElement("p");
-        pBio.innerHTML = userData[2];
-
-        //add nodes
-        dInfoUser.appendChild(pUsername);
-        pUsername.appendChild(emUsername);
-        dInfoUser.appendChild(hName);
-        dInfoUser.appendChild(pBio);
-      }
-
-      function extractRepos(userRepoData){
-        noUserInput();
-        var listRepos = userRepoData.map(function(item,i){
-          addListElementRepo(item.html_url, item.name, item.forks_count, item.stargazers_count);
-        });
-      }
-
-      function addListElementRepo (link, name, forks, stars) { 
-        // select ul
-        var list = document.getElementById("repos");
-        // create nodes
-        // li
-        var liRepo = document.createElement("li");
-        // a 
-        var aRepo = document.createElement("a");
-        aRepo.href = link;
-        aRepo.target = "_blank";
-        aRepo.innerHTML = capitalizeStr(name);
-        // sibling 
-        var dInfo = document.createElement("div");
-        dInfo.setAttribute("class", "dInfo");
-        // icon star svg
-        var svgStar = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgStar.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-        svgStar.setAttribute("class", "icons star");
-        var useSvgStar = document.createElementNS("http://www.w3.org/2000/svg", "use");
-        useSvgStar.setAttributeNS("http://www.w3.org/1999/xlink","href","img/icons.svg#star");
-        // span stars text
-        var sstars = document.createElement("span");
-        sstars.innerHTML = stars;
-
-        // icon fork-repo svg
-        var svgFork = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svgFork.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-        svgFork.setAttribute("class", "icons repo-forked");
-        var useSvgFork = document.createElementNS("http://www.w3.org/2000/svg", "use");
-        useSvgFork.setAttributeNS("http://www.w3.org/1999/xlink","href","img/icons.svg#repo-forked");
-        // span stars text
-        var sforks = document.createElement("span");
-        sforks.innerHTML = forks;
-
-        //add nodes
-        list.appendChild(liRepo);
-        liRepo.appendChild(aRepo);
-        liRepo.appendChild(dInfo);
-        dInfo.appendChild(svgStar);
-        dInfo.appendChild(sstars);
-        dInfo.appendChild(svgFork);
-        dInfo.appendChild(sforks);
-
-        svgStar.appendChild(useSvgStar);
-        svgFork.appendChild(useSvgFork);
-      }
-
-      function capitalizeStr (str){
-        return str.replace(/\b\w/g, l => l.toUpperCase());
-      }
-
-      function clearChildNodes(idparent){
-        var parent = document.getElementById(idparent);
-        while (parent.firstChild) {
-          parent.removeChild(parent.firstChild);
-        }
-      }
-
-
-
-
-    </script>
+<!--   <script src="js/main.js"></script>
+  <script src="js/utilities.js"></script>
+ -->
 </body>
 </html>
